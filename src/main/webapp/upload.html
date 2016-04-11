@@ -1,0 +1,20 @@
+<html ng-app="myApp">
+<head>
+    <title>Angular JS</title>
+    <script src="framework/jquery/js/jquery-1.11.3.js"></script>
+    <script src="framework/bootstrap/js/bootstrap.min.js"></script>
+    <script src="framework/angular/js/angular.js"></script>
+    <link rel="stylesheet" href="framework/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <div ng-controller = "myCtrl">
+        <input type="file" file-model="myFile"/>
+        <button ng-click="uploadFile()">upload me</button>
+    </div>
+
+
+</div>
+</body>
+<script src="upload.js"></script>
+</html>

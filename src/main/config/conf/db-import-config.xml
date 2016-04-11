@@ -1,0 +1,14 @@
+<dataConfig>
+    <dataSource name="dbDS"
+                type="JdbcDataSource"
+                driver="${jdbc.driver}"
+                url="${jdbc.url}"
+                user="${jdbc.username}"
+                password="${jdbc.password}"/>
+
+    <document name="oleds">
+        <entity name="ole_ds_bib_t" pk="bib_id" transformer="org.kuali.ole.extractor.BibInfoExtractor"
+                query="select * from ole_ds_bib_t b limit 1">
+        </entity>
+    </document>
+</dataConfig>

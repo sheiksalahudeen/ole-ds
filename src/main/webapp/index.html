@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OLE Docstore NG</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="framework/jquery/js/jquery-1.11.3.js"></script>
+    <script src="framework/bootstrap/js/bootstrap.min.js"></script>
+    <script src="scripts/oleds.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 align="center">OLE Docstore NG </h1>
+
+        <p align="center">Blazing Fast Indexing & Search!</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Full DB Indexing</h3>
+
+            <p>Index millions of records in matter of hours. Using a multi-threading model, OLEDS-NG spawns a number of
+                threads to fetch data from the database, indexes into multiple temporary cores and at the end merges
+                everything back together. </p>
+            <a data-toggle="tab" href="#fullIndexingDiv" class="btn btn-info active pull-right">Go</a></li>
+        </div>
+        <div class="col-sm-4">
+            <h3>Customize Indexing Parameters</h3>
+
+            <p>OLEDS-NG offers various custom parameters for indexing such as providing a range of ids or selected ids
+                or since last indexed date etc. This would provide maximum flexibility in terms of indexing options.</p>
+            <br/>
+            <a data-toggle="tab" href="#customizeIndexingDiv" class="btn btn-info active pull-right">Go</a></li>
+        </div>
+        <div class="col-sm-4">
+            <h3>Replication & Backup</h3>
+
+            <p>Replicate cores, back up or swap cores to ensure 100% uptime.</p>
+            <br/><br/><br/>
+            <a data-toggle="tab" href="#replicationBackupDiv" class="btn btn-info active pull-right">Go</a></li>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="container">
+        <div class="bs-example">
+            <div class="tab-content">
+                <div id="fullIndexingDiv" class="tab-pane fade">
+                    <br/><br/>
+
+                    <div class="container">
+                        <!-- Horizonatal Form -->
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="numberOfThread" class="col-sm-4">Number of threads</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="numberOfThread"
+                                                   placeholder="Number of thread"/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span id="numberOfThreadErrorMessage"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="batchSize" class="col-sm-4">Batch Size</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="email" class="form-control bfh-number" id="batchSize"
+                                                   placeholder="Batch Size"/>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <span id="batchSizeErrorMessage"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="batchSize" class="col-sm-4"></label>
+
+                                        <div class="col-sm-4">
+                                            <button id="fullReIndexingSubmit" type="button"
+                                                    class="btn btn-info active  pull-right" onclick="fullReindexing();">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-xs-10">
+                                            <textarea type="text" class="form-control" id="fullIndexingStatus"
+                                                      placeholder="Full Indexing Status" readonly></textarea>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="customizeIndexingDiv" class="tab-pane fade">
+                    <h3>Customize Indexing</h3>
+
+                    <p>OLEDS-NG offers various custom parameters for indexing such as providing a range of ids or
+                        selected ids
+                        or since last indexed date etc. This would provide maximum flexibility in terms of indexing
+                        options.</p>
+                </div>
+                <div id="replicationBackupDiv" class="tab-pane fade">
+                    <h3>Replication and Backup</h3>
+
+                    <p>Replicate cores, back up or swap cores to ensure 100% uptime.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+</body>
+</html>
