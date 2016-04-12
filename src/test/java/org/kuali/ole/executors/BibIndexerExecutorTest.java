@@ -28,7 +28,7 @@ public class BibIndexerExecutorTest extends BaseTestCase {
 
     @Test
     public void deleteSolrIndexes() throws Exception {
-        String urlString = "http://localhost:8983/solr/oleds-primary";
+        String urlString = "http://localhost:8983/solr/oleds_primary";
         SolrClient solr = new HttpSolrClient(urlString);
 
         solr.deleteByQuery("*:*");

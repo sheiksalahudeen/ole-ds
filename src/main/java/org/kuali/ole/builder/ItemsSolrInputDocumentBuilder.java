@@ -32,7 +32,7 @@ public class ItemsSolrInputDocumentBuilder extends OleDsConstants {
         solrInputDocument.addField(OLE_DS_SOLR_PREFIX + DOC_TYPE, DOC_TYPE_ITEM_VALUE);
         solrInputDocument.addField(OLE_DS_SOLR_PREFIX + DOC_FORMAT, DOC_FORMAT_INSTANCE_VALUE);
         String itemIdWithPrefix = DocumentUniqueIDPrefixUtil.getPrefixedId(oleDsItemT.getUniqueIdPrefix(), String.valueOf(oleDsItemT.getItemId()));
-        solrInputDocument.addField(OLE_DS_SOLR_PREFIX + ID, itemIdWithPrefix);
+        solrInputDocument.addField(ID, itemIdWithPrefix);
         solrInputDocument.addField(OLE_DS_SOLR_PREFIX + ItemConstants.ITEM_IDENTIFIER, itemIdWithPrefix);
         solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LOCALID_DISPLAY, oleDsItemT.getItemId());
         solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LOCALID_SEARCH, oleDsItemT.getItemId());
@@ -74,7 +74,7 @@ public class ItemsSolrInputDocumentBuilder extends OleDsConstants {
         if (StringUtils.isNotEmpty(oleDsItemT.getCallNumber())) {
             solrInputDocument.addField(OLE_DS_SOLR_PREFIX + ItemConstants.CALL_NUMBER_SEARCH, oleDsItemT.getCallNumber());
             solrInputDocument.addField(OLE_DS_SOLR_PREFIX + ItemConstants.CALL_NUMBER_DISPLAY, oleDsItemT.getCallNumber());
-            solrInputDocument.setField(ItemConstants.CALL_NUMBER_SORT, oleDsItemT.getCallNumber());
+            solrInputDocument.setField(OLE_DS_SOLR_PREFIX + ItemConstants.CALL_NUMBER_SORT, oleDsItemT.getCallNumber());
             solrInputDocument.addField(OLE_DS_SOLR_PREFIX + ItemConstants.CALL_NUMBER_PREFIX_SEARCH, oleDsItemT.getCallNumberPrefix());
             solrInputDocument.addField(OLE_DS_SOLR_PREFIX + ItemConstants.CALL_NUMBER_PREFIX_DISPLAY, oleDsItemT.getCallNumberPrefix());
 
@@ -121,7 +121,7 @@ public class ItemsSolrInputDocumentBuilder extends OleDsConstants {
                 solrInputDocument.addField(OLE_DS_SOLR_PREFIX + ItemConstants.CALLNUMBER_PREFIX_SORT, oleDsItemT.getCallNumberPrefix());
             }
             if (oleDsItemT.getCallNumber() != null) {
-                solrInputDocument.setField(ItemConstants.CALLNUMBER_SORT, oleDsItemT.getCallNumber());
+                solrInputDocument.setField(OLE_DS_SOLR_PREFIX + ItemConstants.CALLNUMBER_SORT, oleDsItemT.getCallNumber());
             }
             if (oleDsItemT.getEnumeration() != null) {
                 String enumerationSort = getOleDsHelperUtil().getNormalizedEnumeration(oleDsItemT.getEnumeration());
@@ -214,8 +214,8 @@ public class ItemsSolrInputDocumentBuilder extends OleDsConstants {
 
         Date createdDate = null;
         date = new Date();
-        solrInputDocument.setField(ItemConstants.DATE_UPDATED, oleDsItemT.getDateUpdated());
-        solrInputDocument.setField(ItemConstants.DATE_ENTERED, oleDsItemT.getDateCreated());
+        solrInputDocument.setField(OLE_DS_SOLR_PREFIX + ItemConstants.DATE_UPDATED, oleDsItemT.getDateUpdated());
+        solrInputDocument.setField(OLE_DS_SOLR_PREFIX + ItemConstants.DATE_ENTERED, oleDsItemT.getDateCreated());
 
         List<OleDsItemDonorT> oleDsItemDonorTs = oleDsItemT.getOleDsItemDonorTs();
         for (Iterator<OleDsItemDonorT> iterator = oleDsItemDonorTs.iterator(); iterator.hasNext(); ) {

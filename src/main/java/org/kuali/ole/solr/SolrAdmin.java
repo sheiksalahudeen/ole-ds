@@ -170,7 +170,7 @@ public class SolrAdmin {
     }
 
     public String getPrimaryCore() {
-        return null == primaryCore ? "oleds-primary" : primaryCore;
+        return null == primaryCore ? "oleds_primary" : primaryCore;
     }
 
     public SolrClient getSolrClientForPrimaryCore() {

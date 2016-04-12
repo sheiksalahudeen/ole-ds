@@ -81,7 +81,7 @@ public class HoldingsSolrInputDocumentBuilder extends OleDsConstants {
         if (oleDsHoldingsT.getCallNumber() != null) {
             // solrInputDocument.addField(OLE_DS_SOLR_PREFIX + HoldingsConstants.CALL_NUMBER_TYPE_SEARCH, oleDsHoldingsT.getOleCatShvlgSchmT().getType());  // Todo : Need to verify
             solrInputDocument.addField(OLE_DS_SOLR_PREFIX + HoldingsConstants.CALL_NUMBER_SEARCH, oleDsHoldingsT.getCallNumber());
-            solrInputDocument.setField(HoldingsConstants.CALL_NUMBER_SORT, oleDsHoldingsT.getCallNumber());
+            solrInputDocument.setField(OLE_DS_SOLR_PREFIX + HoldingsConstants.CALL_NUMBER_SORT, oleDsHoldingsT.getCallNumber());
             //solrInputDocument.addField(OLE_DS_SOLR_PREFIX + HoldingsConstants.ITEM_PART_SEARCH, oleDsHoldingsT.getCallNumber().getItemPart()); // Todo : Need to verify
             solrInputDocument.addField(OLE_DS_SOLR_PREFIX + HoldingsConstants.CALL_NUMBER_PREFIX_SEARCH, oleDsHoldingsT.getCallNumberPrefix());
             // solrInputDocument.addField(OLE_DS_SOLR_PREFIX + HoldingsConstants.CLASSIFICATION_PART_SEARCH, oleDsHoldingsT.getCallNumber().getClassificationPart()); // Need to Verify

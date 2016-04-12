@@ -108,24 +108,24 @@ public class OleDsHelperUtil extends OleDsConstants{
     public void buildLocationLevels(String locationName, String locationLevel, SolrInputDocument solrInputDocument, StringBuffer loactionLevelStr) {
         if (StringUtils.isNotBlank(locationLevel)) {
             if (LOCATION_LEVEL_INSTITUTION.equalsIgnoreCase(locationLevel)) {
-                solrInputDocument.addField(LEVEL1LOCATION_DISPLAY, locationName);
-                solrInputDocument.addField(LEVEL1LOCATION_SEARCH, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL1LOCATION_DISPLAY, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL1LOCATION_SEARCH, locationName);
                 appendData(loactionLevelStr,locationName.replace("-",""));
             } else if (LOCATION_LEVEL_CAMPUS.equalsIgnoreCase(locationLevel)) {
-                solrInputDocument.addField(LEVEL2LOCATION_DISPLAY, locationName);
-                solrInputDocument.addField(LEVEL2LOCATION_SEARCH, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL2LOCATION_DISPLAY, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL2LOCATION_SEARCH, locationName);
                 appendData(loactionLevelStr,locationName.replace("-",""));
             } else if (LOCATION_LEVEL_LIBRARY.equalsIgnoreCase(locationLevel)) {
-                solrInputDocument.addField(LEVEL3LOCATION_DISPLAY, locationName);
-                solrInputDocument.addField(LEVEL3LOCATION_SEARCH, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL3LOCATION_DISPLAY, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL3LOCATION_SEARCH, locationName);
                 appendData(loactionLevelStr,locationName.replace("-",""));
             } else if (LOCATION_LEVEL_COLLECTION.equalsIgnoreCase(locationLevel)) {
-                solrInputDocument.addField(LEVEL4LOCATION_DISPLAY, locationName);
-                solrInputDocument.addField(LEVEL4LOCATION_SEARCH, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL4LOCATION_DISPLAY, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL4LOCATION_SEARCH, locationName);
                 appendData(loactionLevelStr,locationName.replace("-",""));
             } else if (LOCATION_LEVEL_SHELVING.equalsIgnoreCase(locationLevel) || LOCATION_LEVEL_SHELVING_1.equalsIgnoreCase(locationLevel)) {
-                solrInputDocument.addField(LEVEL5LOCATION_DISPLAY, locationName);
-                solrInputDocument.addField(LEVEL5LOCATION_SEARCH, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL5LOCATION_DISPLAY, locationName);
+                solrInputDocument.addField(OLE_DS_SOLR_PREFIX + LEVEL5LOCATION_SEARCH, locationName);
                 appendData(loactionLevelStr,locationName.replace("-",""));
             }
         }
