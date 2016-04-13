@@ -24,6 +24,7 @@ public class BibDAOTest extends BaseTestCase{
     public void bibAndRelatedData() throws Exception {
         assertNotNull(bibDAO);
         OleDsBibT dsBibT = bibDAO.findByPrimaryKey(1);
+        assertNotNull(dsBibT);
         System.out.println(dsBibT.getBibId());
         List<OleDsHoldingsT> oleDsHoldingsTs = dsBibT.getOleDsHoldingsTs();
         System.out.println("Num Holdings: " + oleDsHoldingsTs.size());

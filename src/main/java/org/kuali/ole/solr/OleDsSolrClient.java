@@ -1,5 +1,6 @@
 package org.kuali.ole.solr;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -28,15 +29,17 @@ public class OleDsSolrClient {
 
     public Integer indexDocument(String coreName, List<SolrInputDocument> solrInputDocuments) {
         Integer commitCount = 0;
-        SolrClient solrClient = new HttpSolrClient(getSolrUrl() + "/" + coreName);
-        try {
-            solrClient.add(solrInputDocuments);
-            solrClient.commit();
-            commitCount = solrInputDocuments.size();
-        } catch (SolrServerException e) {
-            logger.error(e.getMessage());
-        } catch (IOException e) {
-            logger.error(e.getMessage());
+        if(CollectionUtils.isNotEmpty(solrInputDocuments)) {
+            SolrClient solrClient = new HttpSolrClient(getSolrUrl() + "/" + coreName);
+            try {
+                solrClient.add(solrInputDocuments);
+                solrClient.commit();
+                commitCount = solrInputDocuments.size();
+            } catch (SolrServerException e) {
+                logger.error(e.getMessage());
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+            }
         }
         return commitCount;
     }
