@@ -55,7 +55,7 @@ public class IndexerTest {
 
     @Test
     public void deleteSolrIndexes() throws Exception {
-        String urlString = "http://localhost:8983/solr/oleds-primary";
+        String urlString = "http://localhost:8983/solr/oleds_primary";
         SolrClient solr = new HttpSolrClient(urlString);
 
         solr.deleteByQuery("*:*");
@@ -66,7 +66,7 @@ public class IndexerTest {
     @Test
     public void sampleIndex() throws Exception {
 
-        String urlString = "http://localhost:8983/solr/oleds-primary";
+        String urlString = "http://localhost:8983/solr/oleds_primary";
         SolrClient solr = new HttpSolrClient(urlString);
 
         SolrInputDocument document = new SolrInputDocument();
@@ -193,13 +193,13 @@ public class IndexerTest {
         CoreAdminRequest coreAdminRequest = getCoreAdminRequest();
         SolrClient solrClient = getSolrClient();
         CoreAdminResponse coreAdminResponse =
-                coreAdminRequest.mergeIndexes("oleds-primary", indexDirs, tempCoreNamesObjectArray, solrClient);
+                coreAdminRequest.mergeIndexes("oleds_primary", indexDirs, tempCoreNamesObjectArray, solrClient);
 
         assertNotNull(coreAdminResponse);
 
 
 
-        String temp1URLString = "http://localhost:8983/solr/oleds-primary";
+        String temp1URLString = "http://localhost:8983/solr/oleds_primary";
         SolrClient solrTempCore1Client = new HttpSolrClient(temp1URLString);
         solrTempCore1Client.commit();
 
