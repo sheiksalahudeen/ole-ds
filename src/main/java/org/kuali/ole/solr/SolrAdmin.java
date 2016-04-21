@@ -31,6 +31,7 @@ public class SolrAdmin {
     public void mergeCores(String sourceCore, List coreNames) {
         String solrHome = getSolrHome();
 
+        logger.info("-------sourcecore--------" + sourceCore + "---------");
         List<String> tempCores = new ArrayList();
         List<String> tempCoreNames = new ArrayList();
 
@@ -177,6 +178,25 @@ public class SolrAdmin {
         return new HttpSolrClient(getSolrURL() + "/" + getPrimaryCore());
     }
 
-    public void deletePreviousIndexes(List<String> tempCores) {
+
+    public void unloadCoresAndDeleteTempDirs(List<String> tempCores) {
+        CoreAdminRequest coreAdminRequest = getCoreAdminRequest();
+        SolrClient solrClient = getSolrClient();
+
+        try {
+            for(String tempCore : tempCores) {
+                coreAdminRequest.unloadCore(tempCore, solrClient);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            for(String tempCore : tempCores) {
+                FileUtils.deleteDirectory(new File(getSolrHome(), tempCore));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
