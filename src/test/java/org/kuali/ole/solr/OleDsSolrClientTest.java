@@ -76,7 +76,7 @@ public class OleDsSolrClientTest extends BaseTestCase {
 
     OleDsSolrClient oleDsSolrClient = new OleDsSolrClient(getSolrURL());
 
-    public String getSolrURL() {
+    private String getSolrURL() {
         readSolrProperties();
         return null == solrURL ? "http://localhost:8983/solr" : solrURL;
     }
@@ -88,9 +88,39 @@ public class OleDsSolrClientTest extends BaseTestCase {
         return coreAdminRequest;
     }
 
+
+    private void unloadCore(String coreName) throws SolrServerException, IOException {
+        try {
+            getCoreAdminRequest().unloadCore(coreName, getSolrClient());
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void unloadCores(List<String> coreNames) {
+        try {
+            for(String coreName : coreNames) {
+                unloadCore(coreName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            for(String coreName : coreNames) {
+                FileUtils.deleteDirectory(new File(getSolrHome()+ File.separator + coreName));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void indexDocument () {
         String tempCoreName = "temp0";
+        unloadCores(new ArrayList<String> (Arrays.asList(tempCoreName)));
         List<SolrInputDocument> solrInputDocumentList = new ArrayList<SolrInputDocument>();
 
         String solrCore = null;
@@ -180,7 +210,7 @@ public class OleDsSolrClientTest extends BaseTestCase {
         catch(Exception e) {
             e.printStackTrace();
         }
-
+/*
         try {
             CoreAdminResponse caResponse = CoreAdminRequest.unloadCore(tempCoreName, getSolrClient());
         }
@@ -198,6 +228,7 @@ public class OleDsSolrClientTest extends BaseTestCase {
         }
         catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+        unloadCores(new ArrayList<String> (Arrays.asList(tempCoreName)));
     }
 }

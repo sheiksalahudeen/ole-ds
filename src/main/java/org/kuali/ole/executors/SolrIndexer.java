@@ -1,5 +1,6 @@
 package org.kuali.ole.executors;
 
+
 import org.kuali.ole.context.ApplicationContextProvider;
 import org.kuali.ole.dao.BibDAO;
 import org.kuali.ole.solr.SolrAdmin;
@@ -8,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.PersistenceContext;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
 
 /**
  * Created by pvsubrah on 10/24/15.
@@ -49,7 +50,7 @@ public class SolrIndexer {
 
         for (int loop = 0; loop <= numLoops; loop++) {
             indexBatch(batchSize, executorService, tempCores);
-            deletePreviousIndexes(tempCores);
+            unloadCoresAndDeleteTempDirs(tempCores);
         }
 
         executorService.shutdown();
@@ -57,8 +58,8 @@ public class SolrIndexer {
         return true;
     }
 
-    private void deletePreviousIndexes(List<String> tempCores) {
-        getSolrAdmin().deletePreviousIndexes(tempCores);
+    private void unloadCoresAndDeleteTempDirs(List<String> tempCores) {
+        getSolrAdmin().unloadCoresAndDeleteTempDirs(tempCores);
     }
 
     private void indexBatch(Integer batchSize, ExecutorService executorService, List<String> tempCores) {
@@ -108,7 +109,7 @@ public class SolrIndexer {
         this.bibDAO = bibDAO;
     }
 
-    public List<String> setupTempCores(Integer numTempCores) {
+    private List<String> setupTempCores(Integer numTempCores) {
         ArrayList<String> tempCoreNames = new ArrayList<String>();
 
         for (int i = 0; i < numTempCores; i++) {
@@ -126,7 +127,7 @@ public class SolrIndexer {
         return solrAdmin;
     }
 
-    public Integer getStartIndex(Integer batchSize) {
+    private Integer getStartIndex(Integer batchSize) {
         String coreName = "tempCore";
         if (null == indexMap) {
             indexMap = new HashMap();
