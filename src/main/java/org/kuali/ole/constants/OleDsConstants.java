@@ -11,7 +11,8 @@ public class OleDsConstants {
     public static final String OLE_DS_SOLR_PREFIX = "oleds_";
     public static final SimpleDateFormat DOCSTORE_DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
 
-
+    public static final Integer NUMBER_OF_THREADS = 10;
+    public static final Integer BATCH_SIZE = 2;
 
     public static final String UNIQUE_ID = "uniqueId";
     public static final String DOC_TYPE = "DocType";
