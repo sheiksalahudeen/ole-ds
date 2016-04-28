@@ -38,88 +38,13 @@ public class SolrAdminTest extends BaseTestCase {
     Logger logger = org.slf4j.LoggerFactory.getLogger(SolrAdminTest.class);
 
     SolrAdmin solrAdmin = new SolrAdmin();
-    private String fileSeparator;
-    private String solrURL;
     private String primaryCore;
-
-
-    private String getSolrHome() {
-        return System.getenv("SOLR_HOME");
-    }
-
-    private void readSolrProperties() {
-        Properties properties = new Properties();
-        File file = new File(System.getProperty("user.home") + getFileSeparator() +
-                "kuali" + getFileSeparator() +
-                "main" + getFileSeparator() +
-                "local" + getFileSeparator() +
-                "common-config.xml");
-        if (file.exists()) {
-            try {
-                properties.load(new FileInputStream(file));
-                solrURL = properties.getProperty("solr.url");
-                primaryCore = properties.getProperty("solr.primary.core");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private String getPrimaryCore() {
         return null == primaryCore ? "oleds_primary" : primaryCore;
     }
+
     OleDsSolrClient oleDsSolrClient = new OleDsSolrClient(getSolrURL());
-
-    private String getSolrURL() {
-        readSolrProperties();
-        return null == solrURL ? "http://localhost:8983/solr" : solrURL;
-    }
-
-    private CoreAdminRequest getCoreAdminRequest() {
-        return new CoreAdminRequest();
-    }
-
-    private SolrClient getSolrClient() {
-        String solrURl = "http://localhost:8983/solr";
-        return new HttpSolrClient(solrURl);
-    }
-
-    private String getFileSeparator() {
-        if (null == fileSeparator) {
-            fileSeparator = System.getProperty("file.separator");
-        }
-
-        return fileSeparator;
-    }
-
-
-    private void unloadCore(String coreName) throws SolrServerException, IOException {
-        try {
-            getCoreAdminRequest().unloadCore(coreName, getSolrClient());
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void unloadCores(List<String> coreNames) {
-        try {
-            for(String coreName : coreNames) {
-                unloadCore(coreName);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            for(String coreName : coreNames) {
-                FileUtils.deleteDirectory(new File(getSolrHome()+ File.separator + coreName));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private Integer indexDocument(String coreName, List<SolrInputDocument> solrInputDocuments) {
         Integer commitCount = 0;
@@ -357,7 +282,6 @@ public class SolrAdminTest extends BaseTestCase {
         logger.info("-------------------commit count is ------------" + commitCount + "----------------");
         logger.info("-------------------commit count2 is ------------" + commitCount2 + "----------------");
 
-        // solrAdmin.mergeCores(sourceCore, List<tempCores>);
         solrAdmin.mergeCores(primaryCore, tempCores1);
 
         // test and verify that the sourceCore has the documents that were in the temp cores

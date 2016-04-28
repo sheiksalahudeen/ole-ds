@@ -5,6 +5,7 @@ import org.kuali.ole.datasource.AbstractJpaDAO;
 import org.kuali.ole.model.OleDsBibT;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class BibDAOImpl extends AbstractJpaDAO implements BibDAO {
     }
 
     public void save(OleDsBibT oleDsBibT) {
-
+        super.create(oleDsBibT);
     }
 
     public void update(OleDsBibT oleDsBibT) {

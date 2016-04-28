@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -36,86 +37,7 @@ public class OleDsSolrClientTest extends BaseTestCase {
     private String primaryCore;
     private HttpSolrClient httpSolrClient;
 
-    private String getSolrHome() {
-        return System.getenv("SOLR_HOME");
-    }
-
-    private String getFileSeparator() {
-        if (null == fileSeparator) {
-            fileSeparator = System.getProperty("file.separator");
-        }
-
-        return fileSeparator;
-    }
-
-    private SolrClient getSolrClient() {
-        if (null == httpSolrClient) {
-            httpSolrClient = new HttpSolrClient(getSolrURL());
-        }
-        logger.info("getting solr client for url --------" + getSolrURL());
-        return httpSolrClient;
-    }
-
-    private void readSolrProperties() {
-        Properties properties = new Properties();
-        File file = new File(System.getProperty("user.home") + getFileSeparator() +
-                "kuali" + getFileSeparator() +
-                "main" + getFileSeparator() +
-                "local" + getFileSeparator() +
-                "common-config.xml");
-        if (file.exists()) {
-            try {
-                properties.load(new FileInputStream(file));
-                solrURL = properties.getProperty("solr.url");
-                primaryCore = properties.getProperty("solr.primary.core");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     OleDsSolrClient oleDsSolrClient = new OleDsSolrClient(getSolrURL());
-
-    private String getSolrURL() {
-        readSolrProperties();
-        return null == solrURL ? "http://localhost:8983/solr" : solrURL;
-    }
-
-    private CoreAdminRequest getCoreAdminRequest() {
-        if (null == coreAdminRequest) {
-            coreAdminRequest = new CoreAdminRequest();
-        }
-        return coreAdminRequest;
-    }
-
-
-    private void unloadCore(String coreName) throws SolrServerException, IOException {
-        try {
-            getCoreAdminRequest().unloadCore(coreName, getSolrClient());
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void unloadCores(List<String> coreNames) {
-        try {
-            for(String coreName : coreNames) {
-                unloadCore(coreName);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
-            for(String coreName : coreNames) {
-                FileUtils.deleteDirectory(new File(getSolrHome()+ File.separator + coreName));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Test
     public void indexDocument () {
@@ -180,6 +102,7 @@ public class OleDsSolrClientTest extends BaseTestCase {
         Integer commitCount = 0;
         logger.info("indexing solr documents");
         commitCount = oleDsSolrClient.indexDocument(tempCoreName, solrInputDocumentList);
+        assertEquals(commitCount.longValue(), 3);
         logger.info("-------------------commit count is ------------" + commitCount + "----------------");
 
         try {
@@ -210,25 +133,7 @@ public class OleDsSolrClientTest extends BaseTestCase {
         catch(Exception e) {
             e.printStackTrace();
         }
-/*
-        try {
-            CoreAdminResponse caResponse = CoreAdminRequest.unloadCore(tempCoreName, getSolrClient());
-        }
-        catch (SolrServerException sse){
-            logger.info("Exception while unloading cores" + sse);
-        }
-        catch (IOException ioe){
-            logger.info("Exception while unloading cores" + ioe);
-        }
 
-        try {
-            FileUtils.deleteDirectory(new File(getSolrHome(), tempCoreName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }*/
         unloadCores(new ArrayList<String> (Arrays.asList(tempCoreName)));
     }
 }
