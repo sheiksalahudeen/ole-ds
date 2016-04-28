@@ -46,59 +46,20 @@ public class BibIndexerExecutorTest extends BaseTestCase {
 
 
     public void unloadOldCoresAndCreateNewCores(){
-        unloadCores();
+        List<String> tempCores = new ArrayList<String>();
+        tempCores.add(tempCore0);
+        tempCores.add(tempCore1);
+        tempCores.add(tempCore2);
+        tempCores.add(tempCore3);
+        tempCores.add(tempCore4);
+        tempCores.add(tempCore5);
+
+        unloadCores(tempCores);
         try {
             createAndUpdateTempCores();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void unloadCores() {
-        try {
-            unloadCore(tempCore0);
-            unloadCore(tempCore1);
-            unloadCore(tempCore2);
-            unloadCore(tempCore3);
-            unloadCore(tempCore4);
-            unloadCore(tempCore5);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            FileUtils.deleteDirectory(new File(getSolrHome()+ File.separator + tempCore0));
-            FileUtils.deleteDirectory(new File(getSolrHome()+ File.separator + tempCore1));
-            FileUtils.deleteDirectory(new File(getSolrHome()+File.separator + tempCore2));
-            FileUtils.deleteDirectory(new File(getSolrHome()+File.separator + tempCore3));
-            FileUtils.deleteDirectory(new File(getSolrHome()+File.separator + tempCore4));
-            FileUtils.deleteDirectory(new File(getSolrHome()+File.separator + tempCore5));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void unloadCore(String coreName) throws SolrServerException, IOException {
-        try {
-            getCoreAdminRequest().unloadCore(coreName, getSolrClient());
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private CoreAdminRequest getCoreAdminRequest() {
-        return new CoreAdminRequest();
-    }
-
-    private String getSolrHome() {
-        return System.getenv("SOLR_HOME");
-    }
-
-    private SolrClient getSolrClient() {
-        String solrURl = "http://localhost:8983/solr";
-        return new HttpSolrClient(solrURl);
     }
 
     @Test
@@ -109,8 +70,6 @@ public class BibIndexerExecutorTest extends BaseTestCase {
         solr.deleteByQuery("*:*");
         solr.commit();
     }
-
-
 
     @Test
     public void indexBibs() {
@@ -201,10 +160,18 @@ public class BibIndexerExecutorTest extends BaseTestCase {
 
     @Test
     public void fullReIndex() {
-        unloadCores();
+        List<String> tempCores = new ArrayList<String>();
+        tempCores.add(tempCore0);
+        tempCores.add(tempCore1);
+        tempCores.add(tempCore2);
+        tempCores.add(tempCore3);
+        tempCores.add(tempCore4);
+        tempCores.add(tempCore5);
+
+        unloadCores(tempCores);
         boolean indexResult = solrIndexer.fullIndex(5, 2000);
         System.out.println(indexResult);
-        unloadCores();
+        unloadCores(tempCores);
 
     }
 
@@ -269,6 +236,4 @@ public class BibIndexerExecutorTest extends BaseTestCase {
         CoreAdminResponse tempSolrCore5 = coreAdminRequest.createCore(tempCoreName5, tempCoreName5, solrClient);
         assertNotNull(tempSolrCore5);
     }
-
-
 }
